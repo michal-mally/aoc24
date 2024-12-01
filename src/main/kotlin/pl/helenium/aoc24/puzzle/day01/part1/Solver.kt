@@ -1,24 +1,12 @@
 package pl.helenium.aoc24.puzzle.day01.part1
 
+import pl.helenium.aoc24.util.Inputs.Companion.verticalLists
 import kotlin.math.abs
 
 class Solver {
 
     fun solve(input: Sequence<String>): Long {
-        val lefts = mutableListOf<Long>()
-        val rights = mutableListOf<Long>()
-        input
-            .filterNot { it.isBlank() }
-            .forEach { line ->
-                val (left, right) = line
-                    .split(Regex("""\s+"""))
-                    .map(String::toLong)
-                lefts += left
-                rights += right
-            }
-
-        lefts.sort()
-        rights.sort()
+        val (lefts, rights) = verticalLists(input, 2, String::toLong).map { it.sorted() }
 
         return lefts
             .zip(rights)
