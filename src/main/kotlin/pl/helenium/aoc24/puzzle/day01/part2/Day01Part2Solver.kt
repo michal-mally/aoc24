@@ -2,7 +2,7 @@ package pl.helenium.aoc24.puzzle.day01.part2
 
 import pl.helenium.aoc24.util.Inputs.Companion.verticalLists
 
-class Solver {
+class Day01Part2Solver {
 
     fun solve(input: Sequence<String>): Long {
         val (lefts, rights) = verticalLists(input, 2, String::toLong)

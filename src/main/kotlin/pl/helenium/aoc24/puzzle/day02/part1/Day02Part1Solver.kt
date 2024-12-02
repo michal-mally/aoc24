@@ -2,7 +2,7 @@ package pl.helenium.aoc24.puzzle.day02.part1
 
 import kotlin.math.abs
 
-class Solver {
+class Day02Part1Solver {
 
     fun solve(input: Sequence<String>): Int {
         return input
