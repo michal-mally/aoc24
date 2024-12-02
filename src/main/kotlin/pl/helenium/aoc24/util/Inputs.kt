@@ -9,16 +9,14 @@ class Inputs {
         ): List<List<T>> {
             val result = List(numberOfLists) { mutableListOf<T>() }
 
-            input
-                .filterNot(String::isBlank)
-                .forEach { line ->
-                    line
-                        .split(Regex("""\s+"""))
-                        .forEachIndexed { index, s ->
-                            result[index] += mapper(s)
-                        }
+            input.forEach { line ->
+                line
+                    .split(Regex("""\s+"""))
+                    .forEachIndexed { index, s ->
+                        result[index] += mapper(s)
+                    }
 
-                }
+            }
 
             return result
         }
