@@ -1,4 +1,4 @@
-package pl.helenium.aoc24.puzzle.day02.part1
+package pl.helenium.aoc24.puzzle.day02.part2
 
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
@@ -14,8 +14,8 @@ class SolverSpec : FunSpec({
     context("should solve the puzzle") {
         withData(
             nameFn = { (input, _) -> input.type },
-            example(day) to 2,
-            real(day) to 670,
+            example(day) to 4,
+            real(day) to 700,
         ) { (input, expected) ->
             // expect
             Solver().solve(linesAsSequence(input)) shouldBeEqual expected
