@@ -23,6 +23,7 @@ class Resources {
                 ?.readText()
                 ?.lines()
                 ?.asSequence()
+                ?.filter { it.isNotBlank() }
                 ?: error("Resource not found: $path")
         }
     }
