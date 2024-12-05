@@ -14,9 +14,8 @@ class Resources {
     companion object {
         fun linesAsSequence(input: Input): Sequence<String> =
             text(input)
+                .trim()
                 .lineSequence()
-                .filter { it.isNotBlank() }
-
 
         fun text(input: Input): String = object {}.javaClass
             .getResource(path(input))
