@@ -39,3 +39,10 @@ class Board<T>(private val cells: List<List<T>>) {
         }
 
 }
+
+fun board(input: Sequence<String>) =
+    input
+        .map(String::toCharArray)
+        .map(CharArray::toList)
+        .toList()
+        .let(::Board)

@@ -2,6 +2,7 @@ package pl.helenium.aoc24.puzzle.day04.part2
 
 import pl.helenium.aoc24.util.board.Board
 import pl.helenium.aoc24.util.board.Cell
+import pl.helenium.aoc24.util.board.board
 
 class Day04Part2Solver {
 
@@ -27,12 +28,5 @@ class Day04Part2Solver {
             ?.containsAll(setOf('M', 'S'))
             ?: false
     }
-
-    private fun board(input: Sequence<String>) =
-        input
-            .map(String::toCharArray)
-            .map(CharArray::toList)
-            .toList()
-            .let(::Board)
 
 }

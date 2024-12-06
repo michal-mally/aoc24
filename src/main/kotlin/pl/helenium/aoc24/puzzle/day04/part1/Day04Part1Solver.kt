@@ -2,6 +2,7 @@ package pl.helenium.aoc24.puzzle.day04.part1
 
 import pl.helenium.aoc24.util.board.Board
 import pl.helenium.aoc24.util.board.Cell
+import pl.helenium.aoc24.util.board.board
 import pl.helenium.aoc24.util.board.directions
 
 class Day04Part1Solver {
@@ -34,12 +35,5 @@ class Day04Part1Solver {
 
         return backtrack(cell + direction, direction, searched.drop(1))
     }
-
-    private fun board(input: Sequence<String>) =
-        input
-            .map(String::toCharArray)
-            .map(CharArray::toList)
-            .toList()
-            .let(::Board)
 
 }
