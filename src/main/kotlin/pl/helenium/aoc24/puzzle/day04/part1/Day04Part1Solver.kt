@@ -2,15 +2,16 @@ package pl.helenium.aoc24.puzzle.day04.part1
 
 import pl.helenium.aoc24.util.board.Board
 import pl.helenium.aoc24.util.board.Cell
+import pl.helenium.aoc24.util.board.Direction
+import pl.helenium.aoc24.util.board.Directions.Companion.ALL_DIRECTIONS
 import pl.helenium.aoc24.util.board.board
-import pl.helenium.aoc24.util.board.directions
 
 class Day04Part1Solver {
 
     fun solve(input: Sequence<String>): Long =
         with(board(input)) {
             allCells()
-                .flatMap { cell -> directions().map { cell to it } }
+                .flatMap { cell -> ALL_DIRECTIONS.map { cell to it } }
                 .sumOf { (cell, direction) ->
                     backtrack(cell, direction, "XMAS")
                 }
@@ -18,7 +19,7 @@ class Day04Part1Solver {
 
     private fun Board<Char>.backtrack(
         cell: Cell,
-        direction: Cell,
+        direction: Direction,
         searched: String,
     ): Long {
         if (searched.isEmpty()) {

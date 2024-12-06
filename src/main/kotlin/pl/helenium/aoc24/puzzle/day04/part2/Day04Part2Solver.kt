@@ -10,8 +10,7 @@ class Day04Part2Solver {
 
     fun solve(input: Sequence<String>): Int =
         with(board(input)) {
-            allCells()
-                .filter { this[it] == 'A' }
+            filter { it == 'A' }
                 .count { center ->
                     diagonals.all { masDiagonal(center, it) }
                 }

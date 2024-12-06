@@ -1,32 +1,30 @@
 package pl.helenium.aoc24.puzzle.day06.part1
 
-import pl.helenium.aoc24.util.board.Cell
+import pl.helenium.aoc24.util.board.Directions.Companion.UP
 import pl.helenium.aoc24.util.board.board
+import pl.helenium.aoc24.util.board.rotateClockwise
 
 class Day06Part1Solver {
 
-    fun solve(input: Sequence<String>): Int {
-        val board = board(input)
+    fun solve(input: Sequence<String>) =
+        with(board(input)) {
+            var location = first { it == '^' }
+            var direction = UP
+            val visitedLocations = mutableSetOf(location)
+            while (true) {
+                val nextLocation = location + direction
+                if (nextLocation !in this) {
+                    return@with visitedLocations.size
+                }
 
-        var currentLocation = board.allCells().first { board[it] == '^' }
-        var direction = Cell(-1, 0)
-        val distinctLocations = mutableSetOf(currentLocation)
-        while (true) {
-            val nextLocation = currentLocation + direction
-            if (nextLocation !in board) {
-                break
+                if (this[nextLocation] == '#') {
+                    direction = direction.rotateClockwise()
+                    continue
+                }
+
+                location = nextLocation
+                visitedLocations += location
             }
-
-            if (board[nextLocation] == '#') {
-                direction = Cell(direction.column, -direction.row)
-                continue
-            }
-
-            currentLocation = nextLocation
-            distinctLocations += currentLocation
         }
-
-        return distinctLocations.size
-    }
 
 }

@@ -42,6 +42,12 @@ class Board<T>(cells: List<List<T>>) {
     operator fun contains(cell: Cell): Boolean =
         cell.row in 0 until rows && cell.column in 0 until columns
 
+    fun first(predicate: (T) -> Boolean): Cell =
+        filter(predicate).first()
+
+    fun filter(predicate: (T) -> Boolean) =
+        allCells().filter { predicate(this[it]) }
+
     fun allCells() =
         sequence {
             for (row in 0 until rows) {
@@ -50,6 +56,9 @@ class Board<T>(cells: List<List<T>>) {
                 }
             }
         }
+
+    fun copy(): Board<T> =
+        Board(cells)
 
     private fun requireCellInBoard(row: Int, column: Int) {
         require(row in 0 until rows) { "Row index out of bounds: $row" }
