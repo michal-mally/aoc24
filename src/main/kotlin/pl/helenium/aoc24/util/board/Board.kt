@@ -1,6 +1,8 @@
 package pl.helenium.aoc24.util.board
 
-class Board<T>(private val cells: List<List<T>>) {
+class Board<T>(cells: List<List<T>>) {
+
+    private val cells: List<MutableList<T>>
 
     init {
         require(cells.isNotEmpty()) { "Board must have at least one row" }
@@ -10,6 +12,8 @@ class Board<T>(private val cells: List<List<T>>) {
                 .isNotEmpty()
         ) { "Board must have at least one column" }
         require(cells.all { it.size == cells.first().size }) { "All rows must have the same size" }
+
+        this.cells = cells.map { it.toMutableList() }
     }
 
     private val rows = cells.size
@@ -17,13 +21,22 @@ class Board<T>(private val cells: List<List<T>>) {
     private val columns = cells.first().size
 
     operator fun get(cell: Cell): T =
-        get(cell.row, cell.column)
+        this[cell.row, cell.column]
 
     operator fun get(row: Int, column: Int): T {
-        require(row in 0 until rows) { "Row index out of bounds: $row" }
-        require(column in 0 until columns) { "Column index out of bounds: $column" }
+        requireCellInBoard(row, column)
 
         return cells[row][column]
+    }
+
+    operator fun set(cell: Cell, value: T) {
+        this[cell.row, cell.column] = value
+    }
+
+    operator fun set(row: Int, column: Int, value: T) {
+        requireCellInBoard(row, column)
+
+        cells[row][column] = value
     }
 
     operator fun contains(cell: Cell): Boolean =
@@ -37,6 +50,11 @@ class Board<T>(private val cells: List<List<T>>) {
                 }
             }
         }
+
+    private fun requireCellInBoard(row: Int, column: Int) {
+        require(row in 0 until rows) { "Row index out of bounds: $row" }
+        require(column in 0 until columns) { "Column index out of bounds: $column" }
+    }
 
 }
 
