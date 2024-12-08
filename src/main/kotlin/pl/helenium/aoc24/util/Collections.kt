@@ -23,5 +23,5 @@ fun <T> Collection<T>.pairs() =
         }
     }
 
-fun <T> MutableSet<T>.addAndReturnSet(element: T): MutableSet<T> =
+infix fun <T> MutableSet<T>.addAndReturn(element: T): MutableSet<T> =
     apply { add(element) }
