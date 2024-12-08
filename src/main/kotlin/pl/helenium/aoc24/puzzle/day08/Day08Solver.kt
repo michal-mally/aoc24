@@ -1,6 +1,5 @@
 package pl.helenium.aoc24.puzzle.day08
 
-import pl.helenium.aoc24.util.addAndReturn
 import pl.helenium.aoc24.util.board.Board
 import pl.helenium.aoc24.util.board.Cell
 import pl.helenium.aoc24.util.board.board
@@ -18,11 +17,10 @@ fun solve(
             .count { it in this }
     }
 
-private fun Board<Char>.groupCellsByValue(): Collection<Set<Cell>> =
+private fun Board<Char>.groupCellsByValue(): Sequence<Set<Cell>> =
     allCellsWithValues()
         .filterNot { (_, value) -> value == '.' }
-        .groupingBy { (_, value) -> value }
-        .fold({ _, _ -> mutableSetOf<Cell>() }) { _, acc, (cell, _) ->
-            acc addAndReturn cell
-        }
+        .groupBy { (_, value) -> value }
         .values
+        .asSequence()
+        .map { it.mapTo(mutableSetOf()) { (cell, _) -> cell } }
