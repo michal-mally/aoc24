@@ -1,14 +1,13 @@
 package pl.helenium.aoc24.puzzle.day08
 
 import pl.helenium.aoc24.util.addAndReturnSet
-import pl.helenium.aoc24.util.board.Board
 import pl.helenium.aoc24.util.board.Cell
 import pl.helenium.aoc24.util.board.board
 import pl.helenium.aoc24.util.pairs
 
 fun solve(
     input: Sequence<String>,
-    antinodesGenerator: (Board<*>, Cell, Cell) -> Sequence<Cell>,
+    antinodesGenerator: (Cell, Cell) -> Sequence<Sequence<Cell>>,
 ): Int =
     with(board(input)) {
         allCellsWithValues()
@@ -18,16 +17,11 @@ fun solve(
                 acc.addAndReturnSet(cell)
             }
             .values
-            .flatMapTo(mutableSetOf()) { nodes ->
-                this.antinodes(nodes, antinodesGenerator)
+            .flatMap {
+                it
+                    .pairs()
+                    .flatMap { (a, b) -> antinodesGenerator(a, b) }
             }
+            .flatMapTo(mutableSetOf()) { it.takeWhile { cell -> cell in this } }
             .count { it in this }
     }
-
-private fun Board<*>.antinodes(
-    nodes: Set<Cell>,
-    antinodesGenerator: (Board<*>, Cell, Cell) -> Sequence<Cell>,
-) =
-    nodes
-        .pairs()
-        .flatMap { (a, b) -> antinodesGenerator(this, a, b) }
