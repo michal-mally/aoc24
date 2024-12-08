@@ -48,6 +48,9 @@ class Board<T>(cells: List<List<T>>) {
     fun filter(predicate: (T) -> Boolean) =
         allCells().filter { predicate(this[it]) }
 
+    fun allCellsWithValues() =
+        allCells().map { it to this[it] }
+
     fun allCells() =
         sequence {
             for (row in 0 until rows) {

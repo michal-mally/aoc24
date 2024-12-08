@@ -11,3 +11,14 @@ fun <T, U, V> Pair<T, U>.mapSecond(f: (U) -> V): Pair<T, V> =
 
 fun <T, U> Pair<T, T>.map(f: (T) -> U): Pair<U, U> =
     f(first) to f(second)
+
+fun <T> Collection<T>.pairs() =
+    toList().let {
+        sequence {
+            for (i in indices) {
+                for (j in i + 1 until size) {
+                    yield(it[i] to it[j])
+                }
+            }
+        }
+    }
